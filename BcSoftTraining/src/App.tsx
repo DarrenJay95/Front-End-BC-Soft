@@ -3,7 +3,7 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import { ExternalLink } from "./AtomicDesign/Atom";
-
+import Card from "./AtomicDesign/Atom/Card"; // Assicurati che il percorso sia corretto in base alla struttura del tuo progetto
 
 function App() {
   const [count, setCount] = useState(0);
@@ -25,18 +25,9 @@ function App() {
         />
       </div>
       <h1>Vite + React</h1>
-      <div className="card">
-        <button
-          onClick={() => {
-            setCount((count) => count + 1);
-          }}
-        >
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
+
+      <Card title={"Ciao"} setCounter={setCount} count={count} />
+
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
