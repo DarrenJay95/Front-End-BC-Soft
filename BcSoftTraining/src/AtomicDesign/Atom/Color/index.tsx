@@ -1,5 +1,3 @@
-import React, {useState} from 'react';
-
 interface colorProps {
 className: string;
 style?: string;
@@ -7,9 +5,7 @@ setColor: React.Dispatch<React.SetStateAction<string>>;
 color: string;
 
 }
-const ColorChanger: React.FC<colorProps> = ({className}) => { 
-   
-    const [color, setColor] = useState('black');
+const ColorChanger: React.FC<colorProps> = ({className, setColor, color}) => {  
   
     const changeColor = () => {
       // Cambia il colore in base al colore corrente

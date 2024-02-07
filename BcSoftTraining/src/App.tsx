@@ -28,7 +28,7 @@ function App() {
       <h1>Vite + React</h1>
 
       <Card title={"Ciao"} setCounter={setCount} count={count} />
-      <ColorChanger className={'card'} style={'black'?'red':'black'} setColor={setColor} color={color}/>
+      <ColorChanger className={'card'} style={color?'red':'black'} setColor={setColor} color={color}/>
 
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
