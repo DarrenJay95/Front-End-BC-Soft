@@ -2,8 +2,10 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
-import { ExternalLink } from "./AtomicDesign/Atom";
-import Card from "./AtomicDesign/Atom/Card"; // Assicurati che il percorso sia corretto in base alla struttura del tuo progetto
+import { 
+  Card, 
+  ExternalLink 
+} from "./AtomicDesign/Atom";
 import ColorChanger from "./AtomicDesign/Atom/Color";
 import Login from "./AtomicDesign/Atom/LoginForm";
 
