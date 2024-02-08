@@ -1,33 +1,13 @@
-import React, { FunctionComponent, useState } from 'react';
+import { FunctionComponent} from 'react';
+import { useLoginLogic } from './LoginLogic';
 
-interface LoginFormState {
-  username: string;
-  password: string;
-}
 
-const initialFormState: LoginFormState = {
-  username: '',
-  password: '',
-};
+
 
 const Login: FunctionComponent = () => {
-  const [formState, setFormState] = useState<LoginFormState>(initialFormState);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-
-    setFormState(prevState => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log('Submit form with:', formState);
-    setFormState(initialFormState);
-  };
-
+  const {formState, handleInputChange, handleSubmit} = useLoginLogic () 
+  
   return (
     <div>
       <h2>Login</h2>
