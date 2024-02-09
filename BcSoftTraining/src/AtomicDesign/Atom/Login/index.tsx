@@ -10,7 +10,7 @@ const initialFormState: LoginFormState = {
   password: '',
 };
 
-const Login: FunctionComponent = () => {
+export const Login: FunctionComponent = () => {
   const [formState, setFormState] = useState<LoginFormState>(initialFormState);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,4 +58,3 @@ const Login: FunctionComponent = () => {
   );
 };
 
-export default Login;
