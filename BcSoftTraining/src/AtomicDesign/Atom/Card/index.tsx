@@ -20,4 +20,3 @@ export const Card: React.FC<CardProps> = ({ title }) => {
     </div>
   );
 };
-
