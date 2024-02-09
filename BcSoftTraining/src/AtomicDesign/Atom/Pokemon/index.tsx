@@ -1,5 +1,9 @@
+import { Button } from '@mantine/core';
+
 export default function Pokemon() {
     return (
-        <div className="pokemon">Ciaoooo</div>
+        <div className="App">
+            <Button></Button>
+        </div>
     )
 }
