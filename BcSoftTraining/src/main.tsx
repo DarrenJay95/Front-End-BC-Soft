@@ -2,22 +2,17 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Pokemon from './AtomicDesign/Atom/Pokemon/index.tsx'
+import '@mantine/core/styles.css'
+import { createTheme, MantineProvider } from '@mantine/core'
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App></App>
-  },
-  {
-    path: "/pokemon",
-    element: <Pokemon></Pokemon>
-  },
-])
+const theme = createTheme({
+  /* Inserire il tema mantine scelto qui dentro*/
+});
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>,
+  <MantineProvider theme={theme}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>,
+  </MantineProvider>
 )
