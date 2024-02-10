@@ -6,7 +6,7 @@ interface CardProps {
   count: number;
 }
 
-const Card: React.FC<CardProps> = ({ title }) => {
+export const Card: React.FC<CardProps> = ({ title }) => {
   const [count, setCount] = useState(0);
 
   const incrementCounter = () => {
@@ -21,5 +21,5 @@ const Card: React.FC<CardProps> = ({ title }) => {
   );
 };
 
-export default Card;
+
 
