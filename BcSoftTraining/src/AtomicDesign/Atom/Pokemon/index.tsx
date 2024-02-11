@@ -1,31 +1,25 @@
-import { Card, Image, Text, Badge, Button, Group } from '@mantine/core';
+import { Card, Text, Button, Group, SimpleGrid } from '@mantine/core';
 
 export function Pokemon() {
     return (
-        <Card shadow="md" padding="lg" radius="lg" withBorder>
+        <Card shadow="md" padding="lg" radius="lg" withBorder w={900}>
+            <Text fw={500} ta={'center'} size='xl' mt={'xs'} mb={'md'}>Lista</Text>
+
             <Card.Section>
-                <Image
-                    // src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png"
-                    height={200}
-                    alt="Pokemon"
-                />
+                <SimpleGrid cols={2}>
+                    <Card shadow="md" radius="lg" withBorder style={{ marginLeft: 20 }}>1</Card>
+                    <Card shadow="md" radius="lg" withBorder style={{ marginRight: 20 }}>2</Card>
+                </SimpleGrid>
             </Card.Section>
 
-            <Group justify="space-between" mt="md" mb="xs">
-                <Text fw={500}>Pokemon Info</Text>
-                <Badge color="red">Fire type</Badge>
+            <Group justify='space-evenly' mt={'xl'} mb={'lg'} >
+                <Button variant='light' radius="md">
+                    Aggiungi
+                </Button>
+                <Button color='red' variant='light' radius="md">
+                    Rimuovi
+                </Button>
             </Group>
-
-            <Text size="sm" c="dimmed" lineClamp={1}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Ipsam molestiae iure veritatis magnam, perferendis ipsum
-                repudiandae corporis eveniet dolore placeat blanditiis
-                dignissimos quisquam quia ad consectetur modi eum est maiores.
-            </Text>
-
-            <Button variant='light' fullWidth mt="md" radius="md">
-                Pokemon
-            </Button>
         </Card>
     );
 }
