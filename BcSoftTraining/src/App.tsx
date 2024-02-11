@@ -1,6 +1,6 @@
 import "./App.css";
 import { useDisclosure } from "@mantine/hooks";
-import { AppShell } from "@mantine/core";
+import { AppShell, Box, Text } from "@mantine/core";
 import Header from './Components/Header/header'
 import Navbar from './Components/Navbar/navbar'
 import RouteSwitcher from "./Components/RouteSwitcher/routeswitcher";
@@ -10,10 +10,10 @@ function App() {
 
   return (
     <>
-      <div className="App" style={{ marginTop: '20px' }}>
+      <Box className="App" style={{ marginTop: '20px' }}>
         <AppShell
           header={{ height: 70 }}
-          navbar={{ width: 300, breakpoint: 'sm', collapsed: { mobile: !opened } }}
+          navbar={{ width: 170, breakpoint: 'sm', collapsed: { mobile: !opened } }}
           padding='sm'>
 
           <Header />
@@ -24,12 +24,16 @@ function App() {
           </AppShell.Main>
 
           <AppShell.Footer
-            style={{ height: 70, padding: 15 }}
+            style={{ height: 50, padding: 15 }}
             zIndex={opened ? 'auto' : 201}>
-            Qual è il supereroe preferito del frontend developer? Captain HTML! ⚡
+            <Text
+              variant="gradient"
+              gradient={{ from: '#05C1E3', to: '#FFD129', deg: 90 }}>
+              Qual è il supereroe preferito del frontend developer? Captain HTML! ⚡
+            </Text>
           </AppShell.Footer>
         </AppShell>
-      </div>
+      </Box>
     </>
   );
 }

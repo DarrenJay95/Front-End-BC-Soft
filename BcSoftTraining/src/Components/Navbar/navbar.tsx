@@ -5,21 +5,21 @@ const Navbar = () => {
     const navigate = useNavigate();
 
     return (
-        <AppShell.Navbar p='md' style={{ gap: '10px' }}>
+        <AppShell.Navbar p='lg' style={{ gap: '15px' }}>
             <NavLink
-                label='Home'
+                label='H o m e'
                 onClick={() => navigate('/home')}
-                style={{ margin: '5px' }}
+                style={{ color: '#05C1E3', fontWeight: 800 }}
             />
             <NavLink
-                label='Pokemon'
-                onClick={() => navigate('/pokemon')}
-                style={{ margin: '5px' }}
+                label='P o k e d e x'
+                onClick={() => navigate('/pokedex')}
+                style={{ color: '#05C1E3', fontWeight: 800 }}
             />
             <NavLink
-                label='Not Found'
+                label='N o t  F o u n d'
                 onClick={() => navigate('*')}
-                style={{ margin: '5px' }}
+                style={{ color: '#05C1E3', fontWeight: 800 }}
             />
         </AppShell.Navbar>
     )

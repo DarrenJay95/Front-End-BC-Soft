@@ -2,6 +2,7 @@ import reactLogo from "../.././assets/react.svg";
 import viteLogo from "../../../public/vite.svg"
 import { ColorChanger, ExternalLink } from "../../AtomicDesign/Atom";
 import { useState } from "react";
+import { Box, Text } from "@mantine/core";
 
 const Home = () => {
     const [color, setColor] = useState('lightblue');
@@ -9,7 +10,7 @@ const Home = () => {
 
     return (
         <>
-            <div>
+            <Box>
                 <ExternalLink
                     href="https://vitejs.dev"
                     src={viteLogo}
@@ -23,11 +24,11 @@ const Home = () => {
                     alt="React logo"
                 />
                 <ColorChanger className={'card'} setColor={setColor} color={color} />
-                <p className="read-the-docs">
-                    Clicca sui logi di Vite e React per apprendere di più
-                </p>
+                <Text c={"dimmed"}>
+                    Clicca sui logi di Vite e React per apprendere più cose
+                </Text>
                 {/* <Card title={"Incrementami"} setCounter={setCount} count={count} /> */}
-            </div>
+            </Box>
         </>
     )
 }

@@ -1,4 +1,4 @@
-import { Button } from "@mantine/core";
+import { Box, Button, Title } from "@mantine/core";
 
 interface colorProps {
   className: string;
@@ -15,9 +15,9 @@ export const ColorChanger: React.FC<colorProps> = ({ className, setColor, color 
   };
 
   return (
-    <div className={className}>
-      <h1 style={{ color: color }}>React + Vite + Mantine</h1>
+    <Box className={className}>
+      <Title order={1} style={{ color: color, marginBottom: 50 }}>React + Vite + Mantine</Title>
       <Button onClick={changeColor} variant="light">Cambia colore</Button>
-    </div>
+    </Box>
   );
 }
