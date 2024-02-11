@@ -11,7 +11,7 @@ export const ColorChanger: React.FC<colorProps> = ({ className, setColor, color 
 
   const changeColor = () => {
     // Cambia il colore in base al colore corrente
-    setColor(color === '#05C1E3' ? '#FFD129' : '#05C1E3'); // istruzione condizionale ternario
+    setColor(color === '#67AADF' ? '#FFD129' : '#67AADF'); // istruzione condizionale ternario
   };
 
   return (

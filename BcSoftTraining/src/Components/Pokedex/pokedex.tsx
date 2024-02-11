@@ -36,7 +36,7 @@ const Pokedex: React.FC = () => {
 
     return (
         <Box className="App">
-            <Title order={2} fw={700} c={'#05C1E3'}>P o k e d e x</Title>
+            <Title order={2} fw={700} c={'#67AADF'}>P o k e d e x</Title>
             <Space h={'xl'}></Space>
             <Pokemon></Pokemon>
         </Box>

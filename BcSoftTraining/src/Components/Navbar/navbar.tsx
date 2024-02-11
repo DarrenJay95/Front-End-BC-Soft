@@ -9,17 +9,18 @@ const Navbar = () => {
             <NavLink
                 label='H o m e'
                 onClick={() => navigate('/home')}
-                style={{ color: '#05C1E3', fontWeight: 800 }}
+                variant="light"
+                style={{ color: '#67AADF', fontWeight: 800 }}
             />
             <NavLink
                 label='P o k e d e x'
                 onClick={() => navigate('/pokedex')}
-                style={{ color: '#05C1E3', fontWeight: 800 }}
+                style={{ color: '#67AADF', fontWeight: 800 }}
             />
             <NavLink
                 label='N o t  F o u n d'
                 onClick={() => navigate('*')}
-                style={{ color: '#05C1E3', fontWeight: 800 }}
+                style={{ color: '#67AADF', fontWeight: 800 }}
             />
         </AppShell.Navbar>
     )
