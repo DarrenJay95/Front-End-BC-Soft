@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
-
 interface CardProps {
   title?: string;
-  setCounter: React.Dispatch<React.SetStateAction<number>>;
+  setCount: React.Dispatch<React.SetStateAction<number>>;
   count: number;
 }
 
-const Card: React.FC<CardProps> = ({ title }) => {
-  const [count, setCount] = useState(0);
+const Card: React.FC<CardProps> = ({ title, count, setCount }) => {
+  // const [count, setCount] = useState(0);
 
   const incrementCounter = () => {
     setCount(count => count + 1);
