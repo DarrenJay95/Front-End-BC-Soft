@@ -1,4 +1,3 @@
-import { useEffect, useMemo, useReducer, useState } from "react";
 import {
   Card,
   Text,
@@ -6,51 +5,20 @@ import {
   Group,
   SimpleGrid,
   MultiSelect,
-  ComboboxItem,
 } from "@mantine/core";
-import {
-  POKEMON_ACTION,
-  pokemonListDefaultState,
-  pokemonReducer,
-} from "./pokemon.reducer";
-import { getPokemon } from "../../../Services/Pokemon";
+import { usePokemonList } from "./pokemon.hook";
 
 export const Pokemon = () => {
-  const [pokemonModel, dispatch] = useReducer(
-    pokemonReducer,
-    pokemonListDefaultState
-  );
-  const [selectedPokemonList, setSelectedPokemonList] = useState<string[]>([]);
-  const [currentSelected, setCurrentSelected] = useState<string[]>([]);
-
-  const handleAddPokemon = () => {
-    dispatch({ type: POKEMON_ACTION.add, payload: selectedPokemonList });
-    setSelectedPokemonList([]);
-  };
-  const handleRemovePokemon = () => {
-    dispatch({ type: POKEMON_ACTION.delete, payload: currentSelected });
-    setCurrentSelected([]);
-  };
-
-  useEffect(() => {
-    getPokemon().then((res) =>
-      dispatch({ type: POKEMON_ACTION.save, payload: res })
-    );
-  }, []);
-
-  const options = useMemo(() => {
-    return pokemonModel.list
-        ?.reduce((acc, { name })=>{
-            const isToFilter = pokemonModel.selectedList?.includes(name);
-            if(isToFilter) return acc;
-            return acc.concat({ label: name, value: name})
-        }, [] as ComboboxItem[]);
-
-    //   ?.filter(({ name }) => !pokemonModel.selectedList?.includes(name))
-    //   .map((el) => ({ label: el.name, value: el.name }));
-
-
-  }, [pokemonModel.list, pokemonModel.selectedList]);
+  const {
+    handleAddPokemon,
+    handleRemovePokemon,
+    options,
+    selectedPokemonList,
+    setSelectedPokemonList,
+    pokemonModel,
+    currentSelected,
+    setCurrentSelected
+  } = usePokemonList();
   return (
     <Card shadow="md" padding="lg" radius="lg" withBorder w={900}>
       <Text fw={500} ta={"center"} size="xl" mt={"xs"} mb={"md"}>
@@ -97,7 +65,7 @@ export const Pokemon = () => {
               searchable
               nothingFoundMessage="Nessun pokemon trovato..."
               value={currentSelected}
-              onChange={(value) => setCurrentSelected(value)}
+              onChange={setCurrentSelected}
             />
 
             <Card withBorder>
