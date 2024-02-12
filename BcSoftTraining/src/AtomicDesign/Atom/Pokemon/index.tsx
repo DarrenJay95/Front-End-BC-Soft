@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import { Card, Text, Button, Group, SimpleGrid, MultiSelect } from '@mantine/core';
 
 export const Pokemon = () => {
+
+    const [pokemonState, dispatch] = useReducer(pokemonReducer, initialState);
     const [addPokemon, setAddPokemon] = useState<string[]>([])
     const [removePokemon, setRemovePokemon] = useState<string[]>([])
 
@@ -12,6 +14,9 @@ export const Pokemon = () => {
         console.log("Pokemon rimosso:", removePokemon);
     }
 
+    useEffect(()=>{
+
+    }, [])
     // const PokemonList = ['Pikachu', 'Bulbasaur', 'Charmander', 'Squirtle'];
 
     return (
@@ -33,7 +38,10 @@ export const Pokemon = () => {
                     <Card shadow="md" radius="lg" withBorder style={{ marginLeft: 20 }}>
                         <MultiSelect
                             placeholder="Seleziona pokemon da aggiungere alla lista"
-                            data={[]}
+                            data={[{
+                                value: 'poke',
+                                label: 'poke'
+                            }]}
                             searchable
                             nothingFoundMessage="Nessun pokemon trovato..."
                             value={addPokemon}
