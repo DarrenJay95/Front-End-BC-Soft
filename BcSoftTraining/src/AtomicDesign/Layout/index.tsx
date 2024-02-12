@@ -1,8 +1,9 @@
-import { AppShell } from "@mantine/core";
+import { AppShell, Button } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import "./index.scss";
 import { Header, Navbar } from "../Molecule";
 import { Outlet } from "react-router-dom";
+import { Auth } from "../../Services/Observer/AuthObserver";
 
 function Layout() {
   const [opened] = useDisclosure();
@@ -18,7 +19,12 @@ function Layout() {
     >
       <Header />
       <Navbar />
-      <AppShell.Main><Outlet /></AppShell.Main>
+      <AppShell.Main>
+        <Outlet />
+        <Button onClick={() => {
+          Auth.reset();
+        }} > reset login </Button>
+        </AppShell.Main>
     </AppShell>
   );
 }

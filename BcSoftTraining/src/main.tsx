@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { router } from "./Routes/index.tsx";
-
 import "./index.scss";
 //#region 
 // MANTINE DEPENDENCY 
@@ -11,6 +10,7 @@ import "./index.scss";
 import "@mantine/core/styles.css";
 import { MantineProvider, createTheme } from "@mantine/core";
 import { RouterProvider } from "react-router-dom";
+import { Loader } from "./AtomicDesign/Atom";
 //#endregion
 
 const theme = createTheme({
@@ -21,6 +21,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <MantineProvider theme={theme}>
       <RouterProvider router={router} />
+      <Loader />
     </MantineProvider>
   </React.StrictMode>
 );
