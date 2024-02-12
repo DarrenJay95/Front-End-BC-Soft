@@ -4,6 +4,7 @@ import { PokemonModel } from "./pokemon.model";
 export const POKEMON_ACTION = {
   save: "save",
   add: "add",
+  delete: "delete"
 } as const;
 
 interface Action<T> {
@@ -32,7 +33,14 @@ export function pokemonReducer<T>(state: PokemonModel, action: Action<T>) {
         const list = action.payload as string[];
         return {
             ...state,
-            selectedList: list.map( el => ({value: el, label: el}))
+            selectedList: [...new Set(state.selectedList?.concat(list))]
+        }
+    }
+    case POKEMON_ACTION.delete: {
+        const list = action.payload as string[];
+        return {
+            ...state,
+            selectedList: state.selectedList?.filter((value) => !list.includes(value))
         }
     }
     default:
