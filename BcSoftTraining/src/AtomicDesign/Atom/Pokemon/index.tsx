@@ -1,24 +1,32 @@
-import { useEffect, useReducer, useState } from 'react';
+import { useEffect, useMemo, useReducer, useState } from 'react';
 import { Card, Text, Button, Group, SimpleGrid, MultiSelect } from '@mantine/core';
+import { POKEMON_ACTION, pokemonListDefaultState, pokemonReducer } from './pokemon.reducer';
+import { getPokemon } from '../../../Services/Pokemon';
 
 export const Pokemon = () => {
 
-    const [pokemonState, dispatch] = useReducer(pokemonReducer, initialState);
-    const [addPokemon, setAddPokemon] = useState<string[]>([])
+    const [pokemonModel, dispatch] = useReducer(pokemonReducer, pokemonListDefaultState);
+    const [selectedPokemonList, setPokemon] = useState<string[]>([])
     const [removePokemon, setRemovePokemon] = useState<string[]>([])
 
     const handleAddPokemon = () => {
-        console.log("Pokemon aggiunto:", addPokemon);
+        dispatch({type: 'add', payload: selectedPokemonList })
     }
     const handleRemovePokemon = () => {
         console.log("Pokemon rimosso:", removePokemon);
     }
 
     useEffect(()=>{
-
+        getPokemon().then( res => dispatch({ type: POKEMON_ACTION.save, payload: res}))
     }, [])
     // const PokemonList = ['Pikachu', 'Bulbasaur', 'Charmander', 'Squirtle'];
 
+    const options = useMemo(()=> {
+        return pokemonModel.list?.map(el => ({
+            label: el.name,
+            value: el.name
+        }))
+    }, [pokemonModel.list]);
     return (
         <Card shadow="md" padding="lg" radius="lg" withBorder w={900}>
             <Text fw={500} ta={'center'} size='xl' mt={'xs'} mb={'md'}>Lista Pokemon</Text>
@@ -37,20 +45,19 @@ export const Pokemon = () => {
 
                     <Card shadow="md" radius="lg" withBorder style={{ marginLeft: 20 }}>
                         <MultiSelect
+                            checkIconPosition="left"
+                            multiple
                             placeholder="Seleziona pokemon da aggiungere alla lista"
-                            data={[{
-                                value: 'poke',
-                                label: 'poke'
-                            }]}
+                            data={options}
                             searchable
                             nothingFoundMessage="Nessun pokemon trovato..."
-                            value={addPokemon}
-                            onChange={setAddPokemon}
+                            value={selectedPokemonList}
+                            onChange={setPokemon}
                         />
 
                         <Card withBorder>
                             <Text>
-                                {`Pokemon preferiti: ${addPokemon}   `}
+                                {`Pokemon preferiti: ${selectedPokemonList}   `}
                             </Text>
                         </Card>
 
@@ -59,7 +66,7 @@ export const Pokemon = () => {
                     <Card shadow="md" radius="lg" withBorder style={{ marginRight: 20 }}>
                         <MultiSelect
                             placeholder="Seleziona pokemon da rimuovere alla lista"
-                            data={['Pikachu', 'Bulbasaur', 'Charmander', 'Squirtle']}
+                            data={pokemonModel.selectedList}
                             searchable
                             nothingFoundMessage="Nessun pokemon trovato..."
                             value={removePokemon}

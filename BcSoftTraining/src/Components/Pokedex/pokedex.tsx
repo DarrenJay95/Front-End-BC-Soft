@@ -1,8 +1,8 @@
 import { Box, Space, Title } from '@mantine/core';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { POKEMON_API_URL, IMAGE_API_URL } from '../../config';
 import { Pokemon } from '../../AtomicDesign/Atom/Pokemon';
+import { Endpoints } from '../../Services/endpoints';
 
 interface PokemonData {
     id: number;
@@ -15,7 +15,7 @@ const Pokedex: React.FC = () => {
     const [, setPokemonData] = useState<PokemonData[]>([]);
 
     useEffect(() => {
-        axios.get(POKEMON_API_URL + "?limit=10").then((response) => {
+        axios.get(Endpoints.pokemonList + "?limit=10").then((response) => {
             console.log(response.data)
             if (response.status >= 200 && response.status < 300) {
                 const { results } = response.data;
@@ -24,7 +24,7 @@ const Pokedex: React.FC = () => {
                     index++;
                     const pokemonObject: PokemonData = {
                         id: index,
-                        url: IMAGE_API_URL + index + ".png",
+                        url: 'IMAGE_API_URL' + index + ".png",
                         name: pokemon.name
                     };
                     newPokemonData.push(pokemonObject);
