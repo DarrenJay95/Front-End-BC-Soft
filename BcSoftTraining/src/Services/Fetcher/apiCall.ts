@@ -3,6 +3,7 @@ import { Fetcher } from './FetchFactory';
 import { BASE_URL, ENDPOINTS } from '../Endpoints';
 import { UserModel } from '../Dto';
 import { Auth } from '../Observer/AuthObserver';
+import { hideLoader } from '../Observer/LoaderObserver';
 
 const mutex = new Mutex();
 
@@ -11,7 +12,7 @@ export const ApiCall = async <ResponseType>(
 	method: 'POST' | 'GET',
 	data?: unknown
 ) => {
-	const token = Auth.getSelector('token');
+	const token = Auth.getSelector('token')
 	const result = await Fetcher.fetch<ResponseType>(`${BASE_URL}${url}`, method, data, token);
 	if (!result.ok && result.status === 401) {
 		if (!mutex.isLocked()) {
@@ -27,6 +28,7 @@ export const ApiCall = async <ResponseType>(
 			);
 			if (!reAuth.ok) {
 				Auth.reset();
+				hideLoader();
 				return result;
 			}
 			const newFetchData = await Fetcher.fetch<ResponseType>(
