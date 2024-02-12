@@ -34,11 +34,15 @@ const Pokedex: React.FC = () => {
         });
     }, []);
 
+    // axios.get(POKEMON_API_URL).then((response) => {
+    //     setPokemonData(response.data.results.map(p => p.name))
+    // })
+
     return (
         <Box className="App">
             <Title order={2} fw={700} c={'#67AADF'}>P o k e d e x</Title>
             <Space h={'xl'}></Space>
-            <Pokemon></Pokemon>
+            <Pokemon />
         </Box>
     );
 };
