@@ -3,13 +3,13 @@ import { useSyncExternalStore } from "react";
 import { LoaderObserver } from "../../../Services/Observer/LoaderObserver";
 
 function Loader() {
-  const { isVisible } = useSyncExternalStore(
-    LoaderObserver.onSubscribe('isVisible'),
-    LoaderObserver.getState
+  const visible  = useSyncExternalStore(
+    LoaderObserver.partialSubscribe('isVisible'),
+    LoaderObserver.getSelectedState('isVisible')
   );
   return (
     <LoadingOverlay
-      visible={isVisible}
+      visible={visible}
       zIndex={1000}
       overlayProps={{ radius: "sm", blur: 2 }}
     />

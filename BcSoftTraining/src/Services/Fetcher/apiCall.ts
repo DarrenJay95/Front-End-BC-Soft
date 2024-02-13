@@ -1,7 +1,7 @@
 import { Mutex } from 'async-mutex';
 import { Fetcher } from './FetchFactory';
 import { BASE_URL, ENDPOINTS } from '../Endpoints';
-import { UserModel } from '../Dto';
+import { AuthModel } from '../Dto';
 import { Auth } from '../Observer/AuthObserver';
 import { hideLoader } from '../Observer/LoaderObserver';
 
@@ -18,7 +18,7 @@ export const ApiCall = async <ResponseType>(
 		if (!mutex.isLocked()) {
 			const release = await mutex.acquire();
 			const refreshToken  =  Auth.getSelector('refreshToken');
-			const reAuth = await Fetcher.fetch<UserModel>(
+			const reAuth = await Fetcher.fetch<AuthModel>(
 				`${BASE_URL}${ENDPOINTS}`,
 				'POST',
 				{
@@ -35,7 +35,7 @@ export const ApiCall = async <ResponseType>(
 				`${BASE_URL}${url}`,
 				method,
 				data,
-				reAuth.data.auth.token
+				reAuth.data.token
 			);
 
 			release();

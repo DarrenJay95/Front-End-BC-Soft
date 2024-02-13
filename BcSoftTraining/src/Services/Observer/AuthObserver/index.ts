@@ -1,89 +1,124 @@
-import { AuthModel } from "../../Dto";
-import { ObserverControllerModel, ObserverModel, ObserverStateModel } from "./models";
-
+import { AuthModel, authInitialState } from "../../Dto";
+import {
+  ObserserGlobalStateModel,
+  ObserverControllerModel,
+  ObserverModel,
+  ObserverPartialStateModel,
+  ObserverStateModel,
+} from "./auth.model";
 
 export const AuthController: ObserverControllerModel = function (
   initialState: AuthModel
 ) {
   let instance: ObserverModel;
   let observerList: ObserverStateModel[] = [];
- 
-  const resetInitialCookies = () => {
-    Object.entries(initialState).forEach(setCookie)
+  let state = initialState;
+
+  const getInstance = (): ObserverModel => {
+    if (!instance) {
+      instance = AuthController(initialState);
+    }
+    return instance;
   };
-  const setCookie = ([key, value]: [key: string, value: string]) =>{
-    document.cookie = `${key}=${value}; SameSite=None; Secure`;
+  function partialSubscribe(key: keyof AuthModel) {
+    return function subscribe(callback: (state: Partial<AuthModel>) => void) {
+      const cbObj = { callback, key };
+      observerList.push(cbObj);
+      return partialUnsubscribe.bind(this, cbObj);
+    };
   }
-  
-  const unsubscribe = function (cbObj: ObserverStateModel): void {
-    const newObserverList = observerList.filter((obs) => obs.key !== cbObj.key);
+  function subscribe(callback: (state: AuthModel) => void) {
+    const cbObj = { callback, id: getUUId() };
+    observerList.push(cbObj);
+    return unsubscribe.bind(this, cbObj);
+  }
+  const partialUnsubscribe = function (cbObj: ObserverPartialStateModel): void {
+    const newObserverList = filterList("key", cbObj);
     observerList = newObserverList;
   };
+  const unsubscribe = function (cbObj: ObserserGlobalStateModel): void {
+    const newObserverList = filterList("id", cbObj);
+    observerList = newObserverList;
+  };
+  const filterList = <AuthModel>(key: keyof AuthModel, cbObj: AuthModel) => {
+    return observerList.filter(
+      (obs) =>
+        !(obs as AuthModel)?.[key] || (obs as AuthModel)[key] !== cbObj[key]
+    );
+  };
+  const isPartial = (
+    obs: ObserverStateModel
+  ): obs is ObserverPartialStateModel => {
+    return !!(obs as ObserverPartialStateModel).key;
+  };
 
-  const setState = (
+  const getUUId = () => {
+    return window.crypto.getRandomValues(new Uint8Array(16)).join("");
+  };
+
+  const setSelectedState = (
     key: keyof AuthModel,
     newValue: AuthModel[keyof AuthModel]
   ): void => {
-    if(!newValue) throw Error('no value for Authmodel! no possible')
-    setCookie([key, newValue!])
+    state = {
+      ...state,
+      [key]: newValue,
+    };
     observerList.forEach(
-      (obs) =>
-        obs.key == key &&
-        obs.callback({
-          [key]: newValue,
-        })
+      (obs) => isPartial(obs) && obs.key == key && obs.callback(state)
     );
   };
   const getSelector = (key: keyof AuthModel) => {
-    const cookies = document.cookie;
-    if (cookies) {
-      const value = cookies
-        .split("; ")
-        .find((row) => row.startsWith(`${key}=`))
-        ?.split("=")[1];
-      return value;
-    }
-
-    return undefined;
+    return state[key];
   };
-  const getState = (key: keyof AuthModel) => () => {
-    return getSelector(key);
+  const getSelectedState = (key: keyof AuthModel) => {
+    return function getSelector(){
+      return state[key];
+    };
   };
+  const setState = (newValue: AuthModel): void => {
+    state = newValue;
+    observerList.forEach((obs) => !isPartial(obs) && obs.callback(newValue));
+  };
+  const getState = () => state;
   const reset = () => {
-    resetInitialCookies();
-    observerList.forEach((obs) =>
-      obs.callback(initialState)
-    );
+    state = initialState;
+    observerList.forEach((obs) => obs.callback(state));
   };
+
   return {
-    getInstance: (): ObserverModel => {
-      if (!instance) {
-        instance = AuthController(initialState);
-      }
-      return instance;
-    },
-    onSubscribe(key: keyof AuthModel) {
-      return function subscribe(callback: (state: Partial<AuthModel>) => void) {
-        const cbObj = { callback, key };
-        observerList.push(cbObj);
-        return unsubscribe.bind(this, cbObj);
-      };
-    },
+    getInstance,
+    partialSubscribe,
+    subscribe,
+    partialUnsubscribe,
+    unsubscribe,
+    setSelectedState,
+    getSelectedState,
+    setState,
     getState,
     getSelector,
-    setState,
     reset,
   };
 };
-const { setState, getState, getSelector, reset, onSubscribe } = AuthController({
-  token: "",
-  refreshToken: "",
-}).getInstance();
+
+const {
+  setState,
+  getState,
+  getSelectedState,
+  setSelectedState,
+  reset,
+  partialSubscribe,
+  subscribe,
+  getSelector,
+} = AuthController(authInitialState).getInstance();
 
 export const Auth = {
-  getSelector,
-  getState,
-  onSubscribe,
-  reset,
   setState,
+  getState,
+  getSelectedState,
+  setSelectedState,
+  reset,
+  partialSubscribe,
+  subscribe,
+  getSelector,
 };

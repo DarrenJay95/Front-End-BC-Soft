@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 function Login() {
     const navigate = useNavigate();
     const handleToken = () =>{
-        Auth.setState('token', 'myToken');
+        Auth.setSelectedState('token', 'myToken');
         navigate( '/', {replace: true})
     }
     return ( 

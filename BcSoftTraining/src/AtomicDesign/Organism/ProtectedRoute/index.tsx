@@ -8,7 +8,7 @@ function ProtectedRoute({
   children: JSX.Element | JSX.Element[];
 }) {
   const location = useLocation();
-  const token = useSyncExternalStore(Auth.onSubscribe('token'), Auth.getState('token'));
+  const token = useSyncExternalStore(Auth.partialSubscribe('token'), Auth.getSelectedState('token'));
   
   if (token) return children;
   return <Navigate to="/login" state={{ from: location }} replace />;

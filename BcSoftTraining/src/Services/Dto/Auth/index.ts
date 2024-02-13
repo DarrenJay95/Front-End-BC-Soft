@@ -7,11 +7,12 @@ export const ROLE = {
 export type UserRoleKeys =  keyof typeof ROLE;
 
 export interface AuthModel {
-    token: string | undefined;
-    refreshToken: string | undefined;
+    token: string ;
+    refreshToken: string;
 }
 
 export interface UserModel {
-    auth: AuthModel;
     role: UserRoleKeys | null
 }
+
+export  const authInitialState = { token: '', refreshToken: ''};

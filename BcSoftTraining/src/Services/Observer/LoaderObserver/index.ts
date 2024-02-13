@@ -9,10 +9,10 @@ const initialLoaderState: LoaderModel = {
 	isVisible: false,
 };
 
-const { setState, ...obsMethods } =
+const { setSelectedState , ...obsMethods } =
 	ObserverController<LoaderModel>(initialLoaderState).getInstance();
 
 export const LoaderObserver = { ...obsMethods };
 
-export const showLoader = () => setState('isVisible', true);
-export const hideLoader = () => setState('isVisible', false);
+export const showLoader = () => setSelectedState('isVisible', true);
+export const hideLoader = () => setSelectedState('isVisible', false);
