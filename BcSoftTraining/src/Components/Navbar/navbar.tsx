@@ -18,6 +18,11 @@ const Navbar = () => {
                 style={{ color: '#67AADF', fontWeight: 800 }}
             />
             <NavLink
+                label='U s e r  F o r m'
+                onClick={() => navigate('/userform')}
+                style={{ color: '#67AADF', fontWeight: 800 }}
+            />
+            <NavLink
                 label='N o t  F o u n d'
                 onClick={() => navigate('*')}
                 style={{ color: '#67AADF', fontWeight: 800 }}

@@ -1,5 +1,6 @@
+// import ViteLogo from '../../assets/vite.svg?react';
+import viteLogo from "../../assets/vite.svg"
 import reactLogo from "../.././assets/react.svg";
-import viteLogo from "../../../public/vite.svg"
 import { ColorChanger, ExternalLink } from "../../AtomicDesign/Atom";
 import { useState } from "react";
 import { Box, Text } from "@mantine/core";
@@ -11,6 +12,7 @@ const Home = () => {
     return (
         <>
             <Box>
+                {/* <ViteLogo /> */}
                 <ExternalLink
                     href="https://vitejs.dev"
                     src={viteLogo}

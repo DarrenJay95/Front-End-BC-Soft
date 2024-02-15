@@ -1,7 +1,7 @@
 import { Box, Space, Title } from '@mantine/core';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { Pokemon } from '../../AtomicDesign/Atom/Pokemon';
+import { Pokemon } from '../../AtomicDesign/Molecule/Pokemon';
 import { Endpoints } from '../../Services/endpoints';
 
 interface PokemonData {
@@ -40,7 +40,7 @@ const Pokedex: React.FC = () => {
 
     return (
         <Box className="App">
-            <Title order={2} fw={700} c={'#67AADF'}>P o k e d e x</Title>
+            <Title order={2} fw={700} c={'#67AADF'}>Pokedex</Title>
             <Space h={'xl'}></Space>
             <Pokemon />
         </Box>
